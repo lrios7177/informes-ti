@@ -1,7 +1,20 @@
-# Estado de la primera versión 0.1.1
+# Estado de la versión 0.1.2
 
 Validación realizada el **2 de noviembre de 2026** en Debian Linux x64.
 Esta fecha no significa que se haya probado la aplicación instalada en Windows.
+
+## Corrección de acentos del instalador: 0.1.2
+
+La captura de la ejecución manual #6 en verde confirma que 0.1.1 completó la
+compilación, las 20 pruebas, WindowsSmoke, la creación del EXE y las pruebas
+silenciosas de instalación, reinstalación y desinstalación. La captura posterior
+del instalador abierto mostró textos mal decodificados en la bienvenida.
+
+Se reprodujo el problema al preprocesar el script con CP1252: aparecía
+«tÃ©cnico». Se guardaron el script y los textos del instalador con BOM UTF-8 y
+se fijó `/INPUTCHARSET UTF8` en el workflow y en las instrucciones de compilación.
+El mismo ensayo CP1252 ahora conserva «técnico», «Se instalará» e «Ing. Luis Ríos,
+MBA». La revisión visual del nuevo asistente en Windows sigue pendiente.
 
 ## Segunda revisión: 0.1.1
 

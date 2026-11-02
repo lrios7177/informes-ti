@@ -1,4 +1,4 @@
-INFORMES TI
+﻿INFORMES TI
 Desarrollado por Ing. Luis Ríos, MBA
 
 1. Abre Informes TI desde Inicio o desde el acceso directo del escritorio.

@@ -32,8 +32,8 @@ Una vez alojado el código en el repositorio privado `lrios7177/informes-ti`:
 
 1. Abre **Actions → Windows · compilar, probar e instalar → Run workflow**, rama `main`.
 2. Espera a que termine correctamente la ejecución.
-3. En **Artifacts**, descarga `InformesTI-0.1.1-instalador-win-x64`. Se conserva **5 días**.
-4. Extrae el ZIP y ejecuta `InformesTI-Setup-0.1.1-win-x64.exe`.
+3. En **Artifacts**, descarga `InformesTI-0.1.2-instalador-win-x64`. Se conserva **5 días**.
+4. Extrae el ZIP y ejecuta `InformesTI-Setup-0.1.2-win-x64.exe`.
 5. Sigue el asistente en español y abre **Informes TI** desde Inicio o el escritorio.
 
 No necesitas instalar .NET, ejecutar `.bat` ni instalar herramientas de desarrollo.
@@ -92,7 +92,7 @@ Para preparar el instalador en Windows con NSIS 3.11:
 ```powershell
 dotnet publish src/InformesTI.App -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=false -o artifacts/publish
 New-Item artifacts/installer -ItemType Directory -Force
-& "${env:ProgramFiles(x86)}\NSIS\makensis.exe" /V3 installer/InformesTI.nsi
+& "${env:ProgramFiles(x86)}\NSIS\makensis.exe" /INPUTCHARSET UTF8 /V3 installer/InformesTI.nsi
 ```
 
 El instalador queda en `artifacts/installer/`. Antes de una distribución definitiva,

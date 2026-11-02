@@ -1,11 +1,11 @@
-Unicode true
+﻿Unicode true
 !include "MUI2.nsh"
 !include "LogicLib.nsh"
 !include "x64.nsh"
 !include "FileFunc.nsh"
 
 !ifndef APP_VERSION
-  !define APP_VERSION "0.1.1"
+  !define APP_VERSION "0.1.2"
 !endif
 !ifndef PUBLISH_DIR
   !define PUBLISH_DIR "..\artifacts\publish"
@@ -22,7 +22,7 @@ SetCompressor /SOLID lzma
 ManifestDPIAware true
 ManifestSupportedOS all
 BrandingText "Desarrollado por Ing. Luis Ríos, MBA"
-VIProductVersion "0.1.1.0"
+VIProductVersion "0.1.2.0"
 VIAddVersionKey "ProductName" "Informes TI"
 VIAddVersionKey "CompanyName" "Ing. Luis Ríos, MBA"
 VIAddVersionKey "LegalCopyright" "Copyright © 2026 Ing. Luis Ríos, MBA"

@@ -1,4 +1,4 @@
-INFORMES TI — versión inicial de evaluación 0.1.1
+﻿INFORMES TI — versión inicial de evaluación 0.1.2
 Desarrollado por Ing. Luis Ríos, MBA.
 
 Copyright (c) 2026 Ing. Luis Ríos, MBA. Todos los derechos reservados
