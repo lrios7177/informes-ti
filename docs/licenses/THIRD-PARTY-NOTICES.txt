@@ -1,0 +1,163 @@
+INVENTARIO DE COMPONENTES DE TERCEROS
+Generado desde las dependencias restauradas; no incluye datos de usuarios.
+Las licencias originales prevalecen sobre esta ficha.
+
+Microsoft.CodeCoverage/18.0.1 — Solo pruebas
+authors: Microsoft
+license: MIT
+projectUrl: https://github.com/microsoft/vstest
+copyright: © Microsoft Corporation. All rights reserved.
+
+Microsoft.Data.Sqlite.Core/10.0.14 — Distribución
+authors: Microsoft
+license: MIT
+projectUrl: https://docs.microsoft.com/dotnet/standard/data/sqlite/
+copyright: © Microsoft Corporation. All rights reserved.
+
+Microsoft.Data.Sqlite/10.0.14 — Distribución
+authors: Microsoft
+license: MIT
+projectUrl: https://docs.microsoft.com/dotnet/standard/data/sqlite/
+copyright: © Microsoft Corporation. All rights reserved.
+
+Microsoft.Extensions.DependencyInjection.Abstractions/8.0.2 — Distribución
+authors: Microsoft
+license: MIT
+projectUrl: https://dot.net/
+copyright: © Microsoft Corporation. All rights reserved.
+
+Microsoft.Extensions.Logging.Abstractions/8.0.3 — Distribución
+authors: Microsoft
+license: MIT
+projectUrl: https://dot.net/
+copyright: © Microsoft Corporation. All rights reserved.
+
+Microsoft.NET.Test.Sdk/18.0.1 — Solo pruebas
+authors: Microsoft
+license: MIT
+projectUrl: https://github.com/microsoft/vstest
+copyright: © Microsoft Corporation. All rights reserved.
+
+Microsoft.TestPlatform.ObjectModel/18.0.1 — Solo pruebas
+authors: Microsoft
+license: MIT
+projectUrl: https://github.com/microsoft/vstest
+copyright: © Microsoft Corporation. All rights reserved.
+
+Microsoft.TestPlatform.TestHost/18.0.1 — Solo pruebas
+authors: Microsoft
+license: MIT
+projectUrl: https://github.com/microsoft/vstest
+copyright: © Microsoft Corporation. All rights reserved.
+
+Newtonsoft.Json/13.0.3 — Solo pruebas
+authors: James Newton-King
+license: MIT
+projectUrl: https://www.newtonsoft.com/json
+copyright: Copyright © James Newton-King 2008
+
+PDFsharp-MigraDoc/6.2.4 — Distribución
+authors: PDFsharp Team
+license: MIT
+projectUrl: https://docs.pdfsharp.net/
+copyright: © 2026 empira
+
+PDFsharp/6.2.4 — Distribución
+authors: PDFsharp Team
+license: MIT
+projectUrl: https://docs.pdfsharp.net/
+copyright: © 2026 empira
+
+PdfPig/0.1.13 — Solo pruebas
+authors: UglyToad
+license: Apache-2.0
+projectUrl: https://github.com/UglyToad/PdfPig
+
+SQLitePCLRaw.bundle_e_sqlite3/2.1.13 — Distribución
+authors: Eric Sink
+license: Apache-2.0
+copyright: Copyright 2014-2024 SourceGear, LLC
+
+SQLitePCLRaw.core/2.1.13 — Distribución
+authors: Eric Sink
+license: Apache-2.0
+copyright: Copyright 2014-2024 SourceGear, LLC
+
+SQLitePCLRaw.lib.e_sqlite3/2.1.13 — Distribución
+authors: Eric Sink
+license: Apache-2.0
+copyright: Copyright 2014-2024 SourceGear, LLC
+
+SQLitePCLRaw.provider.e_sqlite3/2.1.13 — Distribución
+authors: Eric Sink
+license: Apache-2.0
+copyright: Copyright 2014-2024 SourceGear, LLC
+
+System.Security.Cryptography.Pkcs/10.0.14 — Distribución
+authors: Microsoft
+license: MIT
+projectUrl: https://dot.net/
+copyright: © Microsoft Corporation. All rights reserved.
+
+xunit.abstractions/2.0.3 — Solo pruebas
+authors: James Newkirk,Brad Wilson
+projectUrl: https://github.com/xunit/xunit
+
+xunit.analyzers/1.18.0 — Solo pruebas
+authors: jnewkirk,bradwilson,marcind
+license: Apache-2.0
+copyright: Copyright (C) .NET Foundation
+
+xunit.assert/2.9.3 — Solo pruebas
+authors: jnewkirk,bradwilson
+license: Apache-2.0
+copyright: Copyright (C) .NET Foundation
+
+xunit.core/2.9.3 — Solo pruebas
+authors: jnewkirk,bradwilson
+license: Apache-2.0
+copyright: Copyright (C) .NET Foundation
+
+xunit.extensibility.core/2.9.3 — Solo pruebas
+authors: jnewkirk,bradwilson
+license: Apache-2.0
+copyright: Copyright (C) .NET Foundation
+
+xunit.extensibility.execution/2.9.3 — Solo pruebas
+authors: jnewkirk,bradwilson
+license: Apache-2.0
+copyright: Copyright (C) .NET Foundation
+
+xunit.runner.visualstudio/3.1.5 — Solo pruebas
+authors: jnewkirk,bradwilson
+license: Apache-2.0
+copyright: Copyright (C) .NET Foundation
+
+xunit/2.9.3 — Solo pruebas
+authors: jnewkirk,bradwilson
+license: Apache-2.0
+copyright: Copyright (C) .NET Foundation
+
+Texto estándar MIT (aplicable a los componentes identificados como MIT):
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Apache-2.0: texto completo en Apache-2.0.txt.
+Open Sans: copyright y atribuciones en OpenSans-NOTICE.txt.
+SQLite: dominio público; https://sqlite.org/copyright.html.
