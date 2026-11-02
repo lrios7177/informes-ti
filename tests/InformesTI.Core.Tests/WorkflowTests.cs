@@ -4,6 +4,7 @@ using InformesTI.Core;
 using UglyToad.PdfPig;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 using Xunit;
+using Microsoft.Data.Sqlite;
 
 namespace InformesTI.Core.Tests;
 
@@ -13,6 +14,10 @@ public sealed class WorkflowTests : IDisposable
     public WorkflowTests() => Directory.CreateDirectory(_root);
     public void Dispose() => Directory.Delete(_root, true);
     private ReportRepository Repository(string name = "datos") => new(Path.Combine(_root, name));
+    // Sin pooling: Dispose debe cerrar el archivo antes de limpiar el directorio
+    // temporal. Windows no permite borrar una base con un handle del pool abierto.
+    private static SqliteConnection InspectionConnection(string path, SqliteOpenMode mode = SqliteOpenMode.ReadWrite) =>
+        new(new SqliteConnectionStringBuilder { DataSource = path, Mode = mode, Pooling = false }.ToString());
     private static Report Sample() => new()
     {
         Company = "Empresa ficticia de pruebas", Location = "Laboratorio de pruebas", Title = "Mantenimiento nocturno — prueba sintética",
@@ -99,7 +104,7 @@ public sealed class WorkflowTests : IDisposable
         var repo = Repository(); var a = Sample(); var b = Sample();
         a.Photos.Add(Photo()); repo.Save(a); repo.Save(b); repo.Delete(a.Id);
         Assert.Null(repo.Get(a.Id)); Assert.NotNull(repo.Get(b.Id));
-        using var db = new Microsoft.Data.Sqlite.SqliteConnection($"Data Source={repo.DatabasePath}"); db.Open();
+        using var db = InspectionConnection(repo.DatabasePath); db.Open();
         using var cmd = db.CreateCommand(); cmd.CommandText = "SELECT COUNT(*) FROM Photos";
         Assert.Equal(0L, cmd.ExecuteScalar());
     }
@@ -146,7 +151,7 @@ public sealed class WorkflowTests : IDisposable
         Assert.Equal(r.Photos.Select(p => p.Id), restored.Photos.Select(p => p.Id));
         Assert.Equal(r.Photos[0].Content, restored.Photos[0].Content);
         Assert.Equal("Primera fotografía", restored.Photos[0].Description);
-        using var prior = new Microsoft.Data.Sqlite.SqliteConnection($"Data Source={previous};Mode=ReadOnly"); prior.Open();
+        using var prior = InspectionConnection(previous, SqliteOpenMode.ReadOnly); prior.Open();
         using var cmd = prior.CreateCommand(); cmd.CommandText = "SELECT Id FROM Reports";
         Assert.Equal(old.Id.ToString(), cmd.ExecuteScalar());
     }
@@ -182,7 +187,7 @@ public sealed class WorkflowTests : IDisposable
     {
         var repo = Repository(); var r = Sample(); repo.Save(r);
         // Simula corrupción lógica en una base SQLite estructuralmente válida.
-        using (var db = new Microsoft.Data.Sqlite.SqliteConnection($"Data Source={repo.DatabasePath}"))
+        using (var db = InspectionConnection(repo.DatabasePath))
         {
             db.Open(); using var cmd = db.CreateCommand();
             cmd.CommandText = "UPDATE Reports SET Payload=json_set(Payload,'$.RecoveryEndedAt','2020-01-01T00:00:00')"; cmd.ExecuteNonQuery();

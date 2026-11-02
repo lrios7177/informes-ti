@@ -3,6 +3,16 @@
 Validación realizada el **2 de noviembre de 2026** en Debian Linux x64.
 Esta fecha no significa que se haya probado la aplicación instalada en Windows.
 
+## Corrección tras la primera ejecución en Windows
+
+La ejecución de GitHub Actions compartida por el usuario compiló y ejecutó las
+19 pruebas: 16 aprobadas y 3 fallidas al eliminar sus directorios temporales.
+Las tres conexiones de inspección de las pruebas usaban el pooling predeterminado
+de SQLite, que conservaba handles abiertos y bloqueaba el borrado en Windows.
+Se corrigieron con `Pooling=false`, sin suprimir errores de limpieza ni omitir
+pruebas. Después del cambio, las 19 pruebas pasan de nuevo en Linux. La corrección
+todavía debe confirmarse en una nueva ejecución de Windows sobre `main`.
+
 ## Verificado en este entorno
 
 - SDK .NET 10.0.403 descargado de Microsoft y comprobado con su SHA-512 oficial.
@@ -53,18 +63,12 @@ El instalador se entrega como primera versión de evaluación, sin firma digital
 
 ## GitHub y publicación
 
-La creación automática de `lrios7177/informes-ti` devolvió `Forbidden` en la API.
-La comprobación de lectura Git del repositorio nuevo devolvió `Repository not found`;
-ese resultado tampoco permite distinguir entre inexistencia y falta de acceso a
-un repositorio privado. No se solicitaron ni copiaron tokens.
+Tras crear el repositorio y autorizarlo, se confirmó la subida de los seis commits
+iniciales a `lrios7177/informes-ti`: la rama remota `main` coincidía con
+`03c6fd54533a3a075bd371ff423ccb83ddc83987`. Las capturas del usuario confirman que
+Actions ejecutó la validación y detectó el problema de limpieza descrito arriba.
 
-El proyecto está en `/workspace/informes-ti`, con un remoto HTTPS preparado para
-el repositorio nuevo y commits locales. No se modifica `hello-world`. No se afirma
-que el código esté subido mientras el push no se confirme.
-El intento de `git push --set-upstream origin main` también devolvió
-`Repository not found`; no se ha subido código a otro repositorio como alternativa.
-
-El usuario debe crear un repositorio **privado y vacío**, llamado **informes-ti**,
-bajo **lrios7177**, sin README, licencia ni `.gitignore` iniciales, y permitir acceso
-al repositorio desde el entorno. Después se puede subir `main` y ejecutar Actions.
-No se ha ejecutado Actions ni publicado una Release.
+La API de GitHub sigue respondiendo `Forbidden` desde este entorno, aunque el acceso
+Git funciona. El resultado de la siguiente ejecución deberá consultarse en Actions.
+No se solicitaron ni copiaron tokens, no se modifica `hello-world` y no se ha
+publicado ninguna Release. El proyecto local está en `/workspace/informes-ti`.
