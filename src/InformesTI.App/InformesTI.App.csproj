@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <AssemblyName>InformesTI</AssemblyName>
+    <RootNamespace>InformesTI.App</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/app.ico</ApplicationIcon>
+    <Product>Informes TI</Product>
+    <Description>Informes locales de mantenimiento técnico</Description>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../InformesTI.Core/InformesTI.Core.csproj" /></ItemGroup>
+  <ItemGroup>
+    <Content Include="../../docs/DEPENDENCIAS.md" Link="Licencias/DEPENDENCIAS.md" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../docs/licenses/*" Link="Licencias/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
