@@ -1,0 +1,16 @@
+INFORMES TI — versión inicial de evaluación 0.1.0
+Desarrollado por Ing. Luis Ríos, MBA.
+
+Copyright (c) 2026 Ing. Luis Ríos, MBA. Todos los derechos reservados
+sobre el código propio. No se concede una licencia de redistribución pública
+del proyecto. El software contiene componentes de terceros con sus propias
+licencias, incluidas en la carpeta Licencias de la instalación.
+
+Esta primera versión debe probarse con datos ficticios antes de utilizarse
+en producción. Mantén respaldos del historial y revisa el PDF antes de entregarlo.
+
+La aplicación funciona localmente y no envía correos, informes ni fotografías.
+El texto del correo se copia solo al pulsar el botón correspondiente.
+Los respaldos no están cifrados: protégelos como cualquier documento de clientes.
+
+El instalador y la aplicación no incluyen una firma digital comercial.

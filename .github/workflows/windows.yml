@@ -1,0 +1,76 @@
+name: Windows · compilar, probar e instalar
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validar:
+    runs-on: windows-2025
+    timeout-minutes: 25
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_NOLOGO: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.403'
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+      - name: Restaurar dependencias bloqueadas
+        run: dotnet restore InformesTI.sln --locked-mode
+      - name: Compilar solución
+        run: dotnet build InformesTI.sln -c Release --no-restore
+      - name: Probar persistencia, fotografías, medianoche, respaldos y PDF
+        run: dotnet test tests/InformesTI.Core.Tests -c Release --no-build --logger "trx;LogFileName=pruebas.trx" --results-directory artifacts/tests
+      - name: Comprobar la interfaz WPF en Windows
+        run: dotnet run --project tests/InformesTI.WindowsSmoke -c Release --no-build
+      - name: Conservar resultados de pruebas por pocos días
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultados-pruebas
+          path: artifacts/tests/*.trx
+          retention-days: 5
+          if-no-files-found: ignore
+      - name: Publicar binarios autónomos para Windows x64
+        if: github.event_name == 'workflow_dispatch'
+        run: dotnet publish src/InformesTI.App -c Release -r win-x64 --self-contained true --no-restore -p:PublishSingleFile=false -p:PublishTrimmed=false -o artifacts/publish
+      - name: Crear instalador EXE
+        if: github.event_name == 'workflow_dispatch'
+        shell: pwsh
+        run: |
+          $compiler = "${env:ProgramFiles(x86)}\NSIS\makensis.exe"
+          if (-not (Test-Path $compiler)) {
+            choco install nsis --version=3.11 --yes --no-progress
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          New-Item artifacts/installer -ItemType Directory -Force | Out-Null
+          & $compiler /V3 installer/InformesTI.nsi
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Copy-Item docs/INSTALACION.md artifacts/installer/LEEME.md
+          Get-ChildItem artifacts/installer/*.exe | ForEach-Object {
+            $hash = (Get-FileHash $_.FullName -Algorithm SHA256).Hash
+            "$hash  $($_.Name)" | Set-Content ($_.FullName + '.sha256')
+          }
+      - name: Probar instalación, actualización y desinstalación silenciosas
+        if: github.event_name == 'workflow_dispatch'
+        shell: pwsh
+        run: ./installer/Test-Installer.ps1 -InstallerPath (Resolve-Path artifacts/installer/InformesTI-Setup-0.1.0-win-x64.exe).Path
+      - name: Conservar instalador para pruebas (sin Release)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: InformesTI-0.1.0-instalador-win-x64
+          path: artifacts/installer/*
+          retention-days: 5
+          if-no-files-found: error

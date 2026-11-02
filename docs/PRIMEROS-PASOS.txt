@@ -1,0 +1,18 @@
+INFORMES TI
+Desarrollado por Ing. Luis Ríos, MBA
+
+1. Abre Informes TI desde Inicio o desde el acceso directo del escritorio.
+2. Completa empresa, ubicación, título y técnico.
+3. Revisa las tres fechas y horas: inicio, fin físico y fin de recuperación.
+   Si cruzas medianoche, selecciona el día siguiente en la etapa correspondiente.
+4. Describe el trabajo, adjunta fotografías JPEG o PNG y escribe sus descripciones.
+5. Pulsa Guardar. Reabre el informe desde el historial para verificarlo.
+6. Exporta el PDF y revisa el resultado en tu visor.
+7. Genera el correo, copia el texto y adjunta el PDF en tu cliente de correo.
+
+Los datos y las fotografías se guardan en %LOCALAPPDATA%\InformesTI\informes.db.
+Las actualizaciones y la desinstalación conservan esa carpeta.
+Exporta un respaldo ZIP antes de actualizar. La importación reemplaza todo el
+historial, pide confirmación y conserva una copia automática del anterior.
+
+No se necesita instalar .NET ni herramientas de desarrollo.
