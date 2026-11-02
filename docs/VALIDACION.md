@@ -15,9 +15,10 @@ La selección de fotografías comprueba además el límite acumulado de 250 MB a
 de cargar todos los archivos en memoria. Se conserva la validación posterior de
 los bytes y la decodificación de cada imagen.
 
-El usuario informa de una nueva ejecución roja de Windows. La API continúa
-bloqueada y falta el mensaje concreto de esa ejecución para diagnosticarla;
-no se da por resuelta ni por verificada la ejecución Windows.
+La captura posterior del usuario confirma la ejecución #3 en verde (commit
+`63a81a5`): compilación, las 19 pruebas originales y WindowsSmoke aprobados en
+Windows. La ejecución #4 de 0.1.1 (`9e5a4f7`) figura en curso en esa captura;
+su resultado y las pruebas del instalador todavía no están confirmados.
 
 ## Corrección tras la primera ejecución en Windows
 
@@ -26,8 +27,8 @@ La ejecución de GitHub Actions compartida por el usuario compiló y ejecutó la
 Las tres conexiones de inspección de las pruebas usaban el pooling predeterminado
 de SQLite, que conservaba handles abiertos y bloqueaba el borrado en Windows.
 Se corrigieron con `Pooling=false`, sin suprimir errores de limpieza ni omitir
-pruebas. Después del cambio, las 19 pruebas pasan de nuevo en Linux. La corrección
-todavía debe confirmarse en una nueva ejecución de Windows sobre `main`.
+pruebas. Después del cambio, las 19 pruebas pasan de nuevo en Linux y la captura
+de la ejecución #3 en verde confirma la validación automática en Windows.
 
 ## Verificado en este entorno
 
@@ -46,6 +47,9 @@ todavía debe confirmarse en una nueva ejecución de Windows sobre `main`.
 - PDF abierto por un lector independiente (PdfPig), con textos españoles, acentos,
   fechas, duraciones, numeración y fotografías. Se comprobó contenido largo
   distribuido en varias páginas y que una foto inválida no sobrescribe un PDF previo.
+- Revisión visual de un PDF sintético de tres páginas, renderizado con Poppler:
+  título, encabezado, fechas, duraciones, pie numerado, imagen y descripción del
+  primer anexo legibles y sin superposiciones en el ejemplo revisado.
 - Correo con asunto, ambas etapas de finalización, resultados y pendientes.
 - Auditoría NuGet de dependencias directas y transitivas: sin paquetes vulnerables
   reportados por las fuentes consultadas. La dependencia Pkcs 8.0.1 de la restauración
@@ -62,12 +66,14 @@ todavía debe confirmarse en una nueva ejecución de Windows sobre `main`.
 Los logs TRX y binarios son salidas locales en `artifacts/`, excluidas de Git.
 El archivo `.sha256` adyacente al instalador identifica el binario exacto de entrega.
 
-## Preparado, todavía no ejecutado en Windows
+## Windows: confirmado y pendiente
 
-- La aplicación WPF en pantalla, selección de fechas, diálogos de archivos,
-  vista previa, copiar al portapapeles y abrir el visor de PDF.
-- `InformesTI.WindowsSmoke`: abre controles reales en un hilo STA, guarda un informe,
-  vuelve a abrir la ventana, comprueba fotografía y descripción y persiste una edición.
+- Confirmado en #3: `InformesTI.WindowsSmoke` abre controles reales en un hilo STA,
+  guarda un informe, vuelve a abrir la ventana, comprueba fotografía y descripción
+  y persiste una edición. También pasó la suite original de 19 pruebas de Core.
+- Pendiente: resultado de #4 para 0.1.1 (20 pruebas), que estaba en curso en la captura.
+- Pendiente: uso manual de selección de fechas, diálogos de archivos, portapapeles,
+  visor de PDF y revisión visual de la interfaz en Windows 11.
 - `installer/Test-Installer.ps1`: instalación, accesos directos, registro de
   desinstalación, reinstalación y desinstalación con conservación de un marcador
   sintético de datos. Se ejecuta en el workflow manual de Windows.
@@ -85,6 +91,7 @@ iniciales a `lrios7177/informes-ti`: la rama remota `main` coincidía con
 Actions ejecutó la validación y detectó el problema de limpieza descrito arriba.
 
 La API de GitHub sigue respondiendo `Forbidden` desde este entorno, aunque el acceso
-Git funciona. El resultado de la siguiente ejecución deberá consultarse en Actions.
+Git funciona. Los resultados Windows citados se basan en las capturas del usuario;
+el resultado de las siguientes ejecuciones deberá consultarse en Actions.
 No se solicitaron ni copiaron tokens, no se modifica `hello-world` y no se ha
 publicado ninguna Release. El proyecto local está en `/workspace/informes-ti`.
