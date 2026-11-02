@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using System.ComponentModel;
 
 namespace InformesTI.Core;
 
@@ -47,11 +48,23 @@ public sealed class Report
     }
 }
 
-public sealed class ReportPhoto
+public sealed class ReportPhoto : INotifyPropertyChanged
 {
+    private string _description = "";
+    public event PropertyChangedEventHandler? PropertyChanged;
     public Guid Id { get; set; } = Guid.NewGuid();
     public string FileName { get; set; } = "foto.jpg";
-    public string Description { get; set; } = "";
+    public string Description
+    {
+        get => _description;
+        set
+        {
+            if (_description == value) return;
+            _description = value;
+            PropertyChanged?.Invoke(this, new(nameof(Description)));
+            PropertyChanged?.Invoke(this, new(nameof(Label)));
+        }
+    }
     public byte[] Content { get; set; } = [];
     [JsonIgnore] public string Label => string.IsNullOrWhiteSpace(Description) ? FileName : Description;
 

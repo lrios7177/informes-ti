@@ -35,7 +35,7 @@
     <ControlTemplate.Triggers><Trigger Property="IsSelected" Value="True"><Setter TargetName="ItemFrame" Property="Background" Value="#164E63"/></Trigger><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ItemFrame" Property="BorderBrush" Value="#22D3EE"/><Setter TargetName="ItemFrame" Property="BorderThickness" Value="1"/></Trigger></ControlTemplate.Triggers>
    </ControlTemplate></Setter.Value></Setter>
   </Style>
-  <Style TargetType="TabControl"><Setter Property="Background" Value="#151E30"/><Setter Property="BorderThickness" Value="0"/><Setter Property="Padding" Value="20"/></Style>
+  <Style TargetType="TabControl"><Setter Property="Background" Value="#151E30"/><Setter Property="Foreground" Value="#E2E8F0"/><Setter Property="BorderThickness" Value="0"/><Setter Property="Padding" Value="20"/></Style>
   <Style TargetType="TabItem">
    <Setter Property="Foreground" Value="#A9BACF"/><Setter Property="Padding" Value="16,12"/>
    <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TabItem">

@@ -28,6 +28,9 @@ Esta fecha no significa que se haya probado la aplicación instalada en Windows.
   incluye `coreclr.dll`, `PresentationFramework.dll` y `e_sqlite3.dll`.
 - Instalador EXE generado con NSIS 3.11-1 para el paquete Windows x64. NSIS se obtuvo
   de Debian verificando el índice firmado y el SHA-256 de sus paquetes.
+- Integridad del archivo instalador comprobada con 7-Zip: extracción correcta y
+  comparación SHA-256 de los 437 archivos publicados con los incluidos en el EXE.
+  Esto verifica el empaquetado, no su ejecución ni la desinstalación en Windows.
 - Fuente Open Sans y avisos de dependencias y runtimes incluidos en la distribución.
 
 Los logs TRX y binarios son salidas locales en `artifacts/`, excluidas de Git.
@@ -58,6 +61,8 @@ un repositorio privado. No se solicitaron ni copiaron tokens.
 El proyecto está en `/workspace/informes-ti`, con un remoto HTTPS preparado para
 el repositorio nuevo y commits locales. No se modifica `hello-world`. No se afirma
 que el código esté subido mientras el push no se confirme.
+El intento de `git push --set-upstream origin main` también devolvió
+`Repository not found`; no se ha subido código a otro repositorio como alternativa.
 
 El usuario debe crear un repositorio **privado y vacío**, llamado **informes-ti**,
 bajo **lrios7177**, sin README, licencia ni `.gitignore` iniciales, y permitir acceso
