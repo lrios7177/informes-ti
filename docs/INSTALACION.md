@@ -2,6 +2,9 @@
 
 ## Obtener el instalador
 
+Si ya recibiste el EXE directamente como archivo de esta entrega, continúa en
+**Instalar**. La siguiente opción permite regenerarlo cuando el código esté en GitHub.
+
 Inicia sesión en GitHub con acceso al repositorio privado `lrios7177/informes-ti`.
 En **Actions**, selecciona **Windows · compilar, probar e instalar** y pulsa
 **Run workflow** sobre `main`. Solo esa ejecución manual genera instalador.
