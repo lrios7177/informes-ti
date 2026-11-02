@@ -199,6 +199,40 @@ public sealed class WorkflowTests : IDisposable
     }
 
     [Fact]
+    public void BackupWithoutPrimaryKeysAndForeignKeysCannotReplaceTheHistory()
+    {
+        var folder = Path.Combine(_root, "estructura-invalida"); Directory.CreateDirectory(folder);
+        var path = Path.Combine(folder, "informes.db");
+        var report = Sample();
+        using (var db = new SqliteConnection(new SqliteConnectionStringBuilder {
+            DataSource = path, Pooling = false
+        }.ToString()))
+        {
+            db.Open(); using var cmd = db.CreateCommand();
+            cmd.CommandText = """
+                CREATE TABLE Reports (Id TEXT, Payload TEXT);
+                CREATE TABLE Photos (Id TEXT, ReportId TEXT, SortOrder INTEGER, FileName TEXT, Description TEXT, Content BLOB);
+                PRAGMA user_version=1;
+                INSERT INTO Reports VALUES ($id,$payload);
+                """;
+            cmd.Parameters.AddWithValue("$id", report.Id.ToString());
+            cmd.Parameters.AddWithValue("$payload", System.Text.Json.JsonSerializer.Serialize(report));
+            cmd.ExecuteNonQuery();
+        }
+        var archive = Path.Combine(_root, "estructura-invalida.zip");
+        using (var zip = ZipFile.Open(archive, ZipArchiveMode.Create))
+        {
+            using (var writer = new StreamWriter(zip.CreateEntry("manifest.json").Open()))
+                writer.Write("{\"application\":\"InformesTI\",\"formatVersion\":1}");
+            zip.CreateEntryFromFile(path, "informes.db");
+        }
+        var target = Repository(); var previous = Sample(); target.Save(previous);
+        Assert.Throws<InvalidDataException>(() => BackupService.Import(target, archive));
+        Assert.NotNull(target.Get(previous.Id));
+        Assert.Null(target.Get(report.Id));
+    }
+
+    [Fact]
     public void PdfContainsSpanishTextDatesPageNumbersAndOrderedPhotoAnnexes()
     {
         var r = Sample(); r.Photos.Add(Photo("evidencia.png", "Evidencia inicial número uno"));

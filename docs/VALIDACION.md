@@ -1,7 +1,23 @@
-# Estado de la primera versión 0.1.0
+# Estado de la primera versión 0.1.1
 
 Validación realizada el **2 de noviembre de 2026** en Debian Linux x64.
 Esta fecha no significa que se haya probado la aplicación instalada en Windows.
+
+## Segunda revisión: 0.1.1
+
+Se reprodujo con una prueba nueva que una base SQLite válida pero sin claves
+primarias ni restricciones podía importarse y reemplazar un historial correcto.
+Ahora se verifica la definición de ambas tablas antes de sustituir los datos.
+El esquema de datos sigue siendo la versión 1: los respaldos normales de 0.1.0
+siguen siendo compatibles. La prueba falló antes del cambio y pasa después.
+
+La selección de fotografías comprueba además el límite acumulado de 250 MB antes
+de cargar todos los archivos en memoria. Se conserva la validación posterior de
+los bytes y la decodificación de cada imagen.
+
+El usuario informa de una nueva ejecución roja de Windows. La API continúa
+bloqueada y falta el mensaje concreto de esa ejecución para diagnosticarla;
+no se da por resuelta ni por verificada la ejecución Windows.
 
 ## Corrección tras la primera ejecución en Windows
 
@@ -19,7 +35,7 @@ todavía debe confirmarse en una nueva ejecución de Windows sobre `main`.
 - Restauración de la solución con `--locked-mode` y archivos de bloqueo por proyecto.
 - Compilación Release de Core, WPF, pruebas y prueba de controles Windows:
   **0 errores y 0 advertencias**. Se compilaron también los recursos XAML.
-- Pruebas de Core: **19 aprobadas, 0 fallidas, 0 omitidas**.
+- Pruebas de Core: **20 aprobadas, 0 fallidas, 0 omitidas**.
   Incluyen persistencia con nueva instancia del repositorio, todos los campos,
   imágenes JPEG/PNG, bytes independientes del archivo original, descripciones,
   orden y eliminación de fotografías, edición, consulta, borrado en cascada,

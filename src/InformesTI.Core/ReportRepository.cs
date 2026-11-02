@@ -5,6 +5,13 @@ namespace InformesTI.Core;
 
 public sealed class ReportRepository
 {
+    internal const string ReportsSchema = "CREATE TABLE Reports (Id TEXT PRIMARY KEY, Payload TEXT NOT NULL)";
+    internal const string PhotosSchema = """
+        CREATE TABLE Photos (
+            Id TEXT PRIMARY KEY, ReportId TEXT NOT NULL REFERENCES Reports(Id) ON DELETE CASCADE,
+            SortOrder INTEGER NOT NULL, FileName TEXT NOT NULL, Description TEXT NOT NULL,
+            Content BLOB NOT NULL, UNIQUE(ReportId, SortOrder))
+        """;
     public string DatabasePath { get; }
     public static string DefaultDataDirectory => Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "InformesTI");
@@ -18,14 +25,8 @@ public sealed class ReportRepository
         var schema = Convert.ToInt32(version.ExecuteScalar());
         if (schema is not (0 or 1)) throw new InvalidDataException("Esta base de datos requiere una versión más reciente de Informes TI.");
         using var cmd = db.CreateCommand();
-        cmd.CommandText = """
-            CREATE TABLE IF NOT EXISTS Reports (Id TEXT PRIMARY KEY, Payload TEXT NOT NULL);
-            CREATE TABLE IF NOT EXISTS Photos (
-                Id TEXT PRIMARY KEY, ReportId TEXT NOT NULL REFERENCES Reports(Id) ON DELETE CASCADE,
-                SortOrder INTEGER NOT NULL, FileName TEXT NOT NULL, Description TEXT NOT NULL,
-                Content BLOB NOT NULL, UNIQUE(ReportId, SortOrder));
-            PRAGMA user_version = 1;
-            """;
+        cmd.CommandText = ReportsSchema.Replace("CREATE TABLE ", "CREATE TABLE IF NOT EXISTS ", StringComparison.Ordinal) + ";" +
+            PhotosSchema.Replace("CREATE TABLE ", "CREATE TABLE IF NOT EXISTS ", StringComparison.Ordinal) + "; PRAGMA user_version = 1;";
         cmd.ExecuteNonQuery();
     }
 

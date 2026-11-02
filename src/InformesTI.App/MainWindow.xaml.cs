@@ -218,6 +218,9 @@ public partial class MainWindow : Window
         if (dialog.ShowDialog(this) != true) return;
         Operation(() => {
             if (_current.Photos.Count + dialog.FileNames.Length > 50) throw new InvalidDataException("Solo se admiten 50 fotografías por informe.");
+            var selectedBytes = dialog.FileNames.Sum(file => new FileInfo(file).Length);
+            if (_current.Photos.Sum(p => (long)p.Content.Length) + selectedBytes > 250L * 1024 * 1024)
+                throw new InvalidDataException("Las fotografías del informe superan 250 MB. Selecciona menos archivos.");
             var added = new List<ReportPhoto>();
             foreach (var file in dialog.FileNames)
             {

@@ -101,6 +101,24 @@ public static class BackupService
             if (!Equals(cmd.ExecuteScalar(), "ok")) throw new InvalidDataException("La base de datos del respaldo está dañada.");
             cmd.CommandText = "PRAGMA user_version";
             if (Convert.ToInt32(cmd.ExecuteScalar()) != 1) throw new InvalidDataException("Versión de respaldo no compatible.");
+            // Un integrity_check correcto no garantiza que existan las claves y
+            // restricciones que necesita Save. Validar antes de tocar el historial.
+            var expected = new Dictionary<string, string> {
+                ["Reports"] = ReportRepository.ReportsSchema, ["Photos"] = ReportRepository.PhotosSchema
+            };
+            cmd.CommandText = "SELECT name, sql FROM sqlite_master WHERE type='table' AND name IN ('Reports','Photos')";
+            using (var schema = cmd.ExecuteReader())
+            {
+                var count = 0;
+                while (schema.Read())
+                {
+                    var name = schema.GetString(0);
+                    if (NormalizeSchema(schema.GetString(1)) != NormalizeSchema(expected[name]))
+                        throw new InvalidDataException("La estructura del respaldo no es compatible. Se conserva el historial actual.");
+                    count++;
+                }
+                if (count != expected.Count) throw new InvalidDataException("El respaldo no contiene todas las tablas necesarias.");
+            }
             cmd.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE (type='table' AND name NOT IN ('Reports','Photos')) OR type IN ('trigger','view')";
             if (Convert.ToInt32(cmd.ExecuteScalar()) != 0) throw new InvalidDataException("El respaldo contiene objetos no admitidos.");
             cmd.CommandText = "PRAGMA foreign_key_check";
@@ -124,6 +142,9 @@ public static class BackupService
             foreach (var photo in r.Photos) PdfExporter.ValidatePhoto(photo.Content);
         }
     }
+
+    private static string NormalizeSchema(string sql) =>
+        string.Concat(sql.Where(c => !char.IsWhiteSpace(c))).TrimEnd(';').ToUpperInvariant();
 }
 
 internal static class AtomicFile
