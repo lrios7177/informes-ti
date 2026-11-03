@@ -1,7 +1,21 @@
-# Estado de la versión 0.1.2
+# Estado de la versión 0.2.0
 
 Validación realizada el **2 de noviembre de 2026** en Debian Linux x64.
 Esta fecha no significa que se haya probado la aplicación instalada en Windows.
+
+## Diseño 0.2.0
+
+Nuevo PDF con cabecera gráfica, tarjetas de duración, secciones numeradas y marcos
+fotográficos. Se renderizaron y revisaron la primera página y un anexo del ejemplo
+sintético; las 20 pruebas pasan y la solución compila sin advertencias. La prueba
+de texto largo conserva el contenido al paginar y la de fotografías conserva el orden.
+
+La interfaz recibe un tema oscuro explícito en MainWindow, cabecera tecnológica,
+tarjetas, pestañas y barras oscuras. Se añade una comprobación del fondo en
+WindowsSmoke y una captura WPF como artefacto. Esta nueva interfaz no se ha
+podido ejecutar en el entorno Linux: su validación Windows y la del instalador
+0.2.0 siguen pendientes. Las capturas verdes anteriores validan versiones previas.
+No se añaden servicios de IA ni se modifica el esquema SQLite.
 
 ## Corrección de acentos del instalador: 0.1.2
 

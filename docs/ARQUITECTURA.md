@@ -27,7 +27,7 @@ absolutas del usuario. No se ejecuta ningún archivo adjunto.
 MigraDoc controla el flujo y la paginación; PDFsharp escribe el PDF y las imágenes.
 Open Sans se incluye como recurso embebido para que el PDF no dependa de fuentes
 instaladas ni de conexiones externas. Cada anexo ajusta su fotografía a un área
-máxima de 17 × 18 cm y mantiene su proporción. El PDF se escribe a un temporal
+máxima de 17 × 17 cm y mantiene su proporción. El PDF se escribe a un temporal
 adyacente al destino y se sustituye solo al completar la escritura.
 
 Los respaldos usan la API Backup de SQLite, no una copia inconsistente de una base

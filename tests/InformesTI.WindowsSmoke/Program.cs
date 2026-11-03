@@ -4,6 +4,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using InformesTI.App;
 using InformesTI.Core;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 internal static class Program
 {
@@ -17,6 +20,9 @@ internal static class Program
             app.InitializeComponent();
             var window = new MainWindow(root) { ShowInTaskbar = false };
             window.Show(); window.UpdateLayout();
+            Check(window.Background is SolidColorBrush background && background.Color.R < 48 &&
+                background.Color.G < 48 && background.Color.B < 64,
+                "El tema oscuro no se aplica a la ventana principal.");
             T Find<T>(string name) where T : FrameworkElement => (T)window.FindName(name);
             Find<TextBox>("CompanyBox").Text = "Empresa ficticia de prueba WPF";
             Find<TextBox>("LocationBox").Text = "Laboratorio sintético";
@@ -28,6 +34,7 @@ internal static class Program
             Find<TextBox>("RecoveryTime").Text = "03:30";
             Find<TextBox>("ActivitiesBox").Text = "Prueba sintética de guardado desde WPF";
             ApplicationCommands.Save.Execute(null, window);
+            SaveDesignPreview(window);
             var repo = new ReportRepository(root);
             var summary = repo.List().Single(); var report = repo.Get(summary.Id)!;
             Check(report.PhysicalDuration == TimeSpan.FromHours(2), "Duración física incorrecta");
@@ -53,4 +60,19 @@ internal static class Program
         finally { if (Directory.Exists(root)) Directory.Delete(root, true); }
     }
     private static void Check(bool condition, string message) { if (!condition) throw new InvalidOperationException(message); }
+    private static void SaveDesignPreview(Window window)
+    {
+        var folder = Environment.GetEnvironmentVariable("INFORMESTI_SCREENSHOT_DIR");
+        if (string.IsNullOrWhiteSpace(folder)) return;
+        window.UpdateLayout();
+        window.Dispatcher.Invoke(() => { }, DispatcherPriority.Render);
+        var dpi = VisualTreeHelper.GetDpi(window);
+        var bitmap = new RenderTargetBitmap((int)Math.Ceiling(window.ActualWidth * dpi.DpiScaleX),
+            (int)Math.Ceiling(window.ActualHeight * dpi.DpiScaleY), dpi.PixelsPerInchX, dpi.PixelsPerInchY, PixelFormats.Pbgra32);
+        bitmap.Render(window);
+        var png = new PngBitmapEncoder(); png.Frames.Add(BitmapFrame.Create(bitmap));
+        Directory.CreateDirectory(folder);
+        using var output = File.Create(Path.Combine(folder, "InformesTI-interfaz.png"));
+        png.Save(output);
+    }
 }

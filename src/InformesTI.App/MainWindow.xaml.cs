@@ -8,6 +8,8 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using InformesTI.Core;
 using Microsoft.Win32;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 namespace InformesTI.App;
 
@@ -26,6 +28,21 @@ public partial class MainWindow : Window
         _ready = true;
         ShowReport(new(), saved: false);
         RefreshHistory();
+    }
+
+    [DllImport("dwmapi.dll")]
+    private static extern int DwmSetWindowAttribute(IntPtr window, int attribute, ref int value, int size);
+
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
+        var handle = new WindowInteropHelper(this).Handle;
+        var enabled = 1;
+        var caption = 0x001E0F08; // COLORREF: BGR, coherente con el fondo de la ventana.
+        var text = 0x00FFF0E5;
+        _ = DwmSetWindowAttribute(handle, 20, ref enabled, sizeof(int));
+        _ = DwmSetWindowAttribute(handle, 35, ref caption, sizeof(int));
+        _ = DwmSetWindowAttribute(handle, 36, ref text, sizeof(int));
     }
 
     private bool Operation(Action action, string error)

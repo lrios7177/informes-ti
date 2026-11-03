@@ -8,6 +8,19 @@ texto de un correo de entrega. Funciona localmente: no necesita cuenta, suscripc
 servicios de IA ni conexión a Internet para trabajar. Es un proyecto independiente
 de `hello-world` y no utiliza GitHub Pages.
 
+## Diseño 0.2.0
+
+Interfaz oscura uniforme con identidad azul/cian, cabecera tecnológica, tarjetas,
+pestañas redondeadas, foco visible y barras de desplazamiento oscuras. Se corrige
+el fondo blanco que podía aparecer fuera del formulario al no aplicarse el estilo
+a la ventana principal derivada.
+
+El PDF tiene una cabecera gráfica, tiempos destacados en tres tarjetas, secciones
+numeradas y anexos con marco y descripción. Mantiene A4, fuentes incluidas,
+contenido seleccionable y paginación automática. Los datos existentes no cambian.
+El workflow también conserva una captura real de WPF, con datos ficticios, como
+artefacto `InformesTI-0.2.0-vista-interfaz`. Detalles: [DISENO.md](docs/DISENO.md).
+
 ## Primera versión
 
 - Crear, editar, guardar, buscar, reabrir y eliminar informes con confirmación.
@@ -32,8 +45,8 @@ Una vez alojado el código en el repositorio privado `lrios7177/informes-ti`:
 
 1. Abre **Actions → Windows · compilar, probar e instalar → Run workflow**, rama `main`.
 2. Espera a que termine correctamente la ejecución.
-3. En **Artifacts**, descarga `InformesTI-0.1.2-instalador-win-x64`. Se conserva **5 días**.
-4. Extrae el ZIP y ejecuta `InformesTI-Setup-0.1.2-win-x64.exe`.
+3. En **Artifacts**, descarga `InformesTI-0.2.0-instalador-win-x64`. Se conserva **5 días**.
+4. Extrae el ZIP y ejecuta `InformesTI-Setup-0.2.0-win-x64.exe`.
 5. Sigue el asistente en español y abre **Informes TI** desde Inicio o el escritorio.
 
 No necesitas instalar .NET, ejecutar `.bat` ni instalar herramientas de desarrollo.

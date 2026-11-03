@@ -10,7 +10,7 @@ En **Actions**, selecciona **Windows · compilar, probar e instalar** y pulsa
 **Run workflow** sobre `main`. Solo esa ejecución manual genera instalador.
 
 Cuando la ejecución esté verde, descarga el artefacto
-`InformesTI-0.1.2-instalador-win-x64`, disponible durante cinco días. Si caducó,
+`InformesTI-0.2.0-instalador-win-x64`, disponible durante cinco días. Si caducó,
 ejecuta de nuevo el workflow. Los eventos push y pull request solo validan el código.
 
 ## Instalar
@@ -18,7 +18,7 @@ ejecuta de nuevo el workflow. Los eventos push y pull request solo validan el c�
 1. Extrae el archivo ZIP descargado.
 2. Comprueba el origen privado del artefacto. El archivo `.sha256` permite
    verificar que el EXE no cambió después de generarse.
-3. Ejecuta `InformesTI-Setup-0.1.2-win-x64.exe` en Windows 11 x64.
+3. Ejecuta `InformesTI-Setup-0.2.0-win-x64.exe` en Windows 11 x64.
 4. Sigue el asistente en español. El acceso directo del escritorio se ofrece
    activado; siempre se crea la entrada del menú Inicio.
 5. Abre **Informes TI**.
@@ -42,5 +42,5 @@ La desinstalación elimina los binarios y accesos directos; conserva
 `%LOCALAPPDATA%\InformesTI`. Si decides borrar definitivamente el historial,
 hazlo de forma manual después de exportar un respaldo y cerrar la aplicación.
 
-La versión 0.1.2 exige probar instalación, reapertura, actualización y desinstalación
+La versión 0.2.0 exige probar instalación, reapertura, actualización y desinstalación
 en Windows antes de publicar una Release.
