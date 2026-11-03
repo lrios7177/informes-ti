@@ -1,74 +1,9 @@
 <Application x:Class="InformesTI.App.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
  <Application.Resources>
-  <SolidColorBrush x:Key="Surface" Color="#151E30" />
-  <SolidColorBrush x:Key="BorderBrush" Color="#334155" />
-  <Style x:Key="AppWindowStyle" TargetType="Window"><Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="14"/><Setter Property="Foreground" Value="#E5F0FF"/><Setter Property="Background" Value="#080F1E"/></Style>
-  <Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/></Style>
-  <Style x:Key="FieldLabel" TargetType="TextBlock"><Setter Property="Foreground" Value="#A9BACF"/><Setter Property="Margin" Value="0,14,0,6"/><Setter Property="FontSize" Value="13"/></Style>
-  <Style TargetType="TextBox">
-   <Setter Property="Foreground" Value="#F1F5F9"/><Setter Property="Background" Value="#111B2B"/>
-   <Setter Property="CaretBrush" Value="White"/><Setter Property="BorderBrush" Value="#3B4B63"/>
-   <Setter Property="Padding" Value="10,8"/><Setter Property="BorderThickness" Value="1"/>
-   <Setter Property="VerticalContentAlignment" Value="Center"/><Setter Property="SelectionBrush" Value="#0E7490"/>
-   <Style.Triggers><Trigger Property="IsKeyboardFocused" Value="True"><Setter Property="BorderBrush" Value="#22D3EE"/></Trigger></Style.Triggers>
-  </Style>
-  <Style TargetType="Button">
-   <Setter Property="Background" Value="#192C44"/><Setter Property="Foreground" Value="#F1F5F9"/>
-   <Setter Property="Padding" Value="14,9"/><Setter Property="Margin" Value="0,0,8,8"/><Setter Property="Cursor" Value="Hand"/>
-   <Setter Property="BorderBrush" Value="#3B4B63"/><Setter Property="BorderThickness" Value="1"/>
-   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button">
-    <Border x:Name="Frame" CornerRadius="9" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
-     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
-    </Border>
-    <ControlTemplate.Triggers>
-     <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Frame" Property="BorderBrush" Value="#22D3EE"/></Trigger>
-     <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Frame" Property="BorderBrush" Value="#67E8F9"/></Trigger>
-     <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Frame" Property="Opacity" Value="0.4"/></Trigger>
-    </ControlTemplate.Triggers>
-   </ControlTemplate></Setter.Value></Setter>
-  </Style>
-  <Style TargetType="ListBox"><Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="#E2E8F0"/><Setter Property="BorderThickness" Value="0"/><Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/></Style>
-  <Style TargetType="ListBoxItem">
-   <Setter Property="Padding" Value="12"/><Setter Property="Margin" Value="0,3"/><Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
-    <Border x:Name="ItemFrame" Padding="{TemplateBinding Padding}" Background="#13233A" CornerRadius="9" BorderThickness="1" BorderBrush="#203650"><ContentPresenter/></Border>
-    <ControlTemplate.Triggers><Trigger Property="IsSelected" Value="True"><Setter TargetName="ItemFrame" Property="Background" Value="#164E63"/></Trigger><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ItemFrame" Property="BorderBrush" Value="#22D3EE"/><Setter TargetName="ItemFrame" Property="BorderThickness" Value="1"/></Trigger></ControlTemplate.Triggers>
-   </ControlTemplate></Setter.Value></Setter>
-  </Style>
-  <Style TargetType="TabControl">
-   <Setter Property="Background" Value="#101E33"/><Setter Property="Foreground" Value="#E2E8F0"/><Setter Property="BorderBrush" Value="#253C57"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="22"/>
-   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TabControl">
-    <Grid KeyboardNavigation.TabNavigation="Local">
-     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-     <TabPanel x:Name="HeaderPanel" IsItemsHost="True" Margin="0,0,0,10" KeyboardNavigation.TabIndex="1"/>
-     <Border Grid.Row="1" Background="{TemplateBinding Background}" CornerRadius="14" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
-      <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent"/>
-     </Border>
-    </Grid>
-   </ControlTemplate></Setter.Value></Setter>
-  </Style>
-  <Style TargetType="TabItem">
-   <Setter Property="Foreground" Value="#A9BACF"/><Setter Property="Padding" Value="16,12"/>
-   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TabItem">
-    <Border x:Name="TabFrame" Background="#0D182A" Margin="0,0,6,0" BorderThickness="1" BorderBrush="#253C57" Padding="{TemplateBinding Padding}" CornerRadius="8"><ContentPresenter ContentSource="Header"/></Border>
-    <ControlTemplate.Triggers><Trigger Property="IsSelected" Value="True"><Setter Property="Foreground" Value="#A5F3FC"/><Setter TargetName="TabFrame" Property="Background" Value="#14384B"/><Setter TargetName="TabFrame" Property="BorderBrush" Value="#1C93AC"/></Trigger><Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="TabFrame" Property="BorderBrush" Value="#67E8F9"/></Trigger></ControlTemplate.Triggers>
-   </ControlTemplate></Setter.Value></Setter>
-  </Style>
-  <Style TargetType="DatePicker"><Setter Property="Foreground" Value="#F1F5F9"/><Setter Property="Background" Value="#111B2B"/><Setter Property="BorderBrush" Value="#3B4B63"/><Setter Property="Padding" Value="4"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
-  <Style TargetType="DatePickerTextBox"><Setter Property="Foreground" Value="#F1F5F9"/><Setter Property="Background" Value="#111B2B"/></Style>
-  <Style TargetType="ScrollBar">
-   <Setter Property="Width" Value="10"/><Setter Property="Background" Value="#0C1729"/>
-   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ScrollBar">
-    <Border Background="{TemplateBinding Background}" CornerRadius="5">
-     <Track x:Name="PART_Track" Orientation="{TemplateBinding Orientation}" Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}" ViewportSize="{TemplateBinding ViewportSize}" Value="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" IsDirectionReversed="True">
-      <Track.DecreaseRepeatButton><RepeatButton x:Name="Decrease" Command="{x:Static ScrollBar.PageUpCommand}" Focusable="False"><RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.DecreaseRepeatButton>
-      <Track.Thumb><Thumb><Thumb.Template><ControlTemplate TargetType="Thumb"><Border CornerRadius="5" Background="#365671" Margin="2"/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>
-      <Track.IncreaseRepeatButton><RepeatButton x:Name="Increase" Command="{x:Static ScrollBar.PageDownCommand}" Focusable="False"><RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.IncreaseRepeatButton>
-     </Track>
-    </Border>
-    <ControlTemplate.Triggers><Trigger Property="Orientation" Value="Horizontal"><Setter TargetName="PART_Track" Property="IsDirectionReversed" Value="False"/><Setter TargetName="Decrease" Property="Command" Value="{x:Static ScrollBar.PageLeftCommand}"/><Setter TargetName="Increase" Property="Command" Value="{x:Static ScrollBar.PageRightCommand}"/></Trigger></ControlTemplate.Triggers>
-   </ControlTemplate></Setter.Value></Setter>
-   <Style.Triggers><Trigger Property="Orientation" Value="Horizontal"><Setter Property="Width" Value="Auto"/><Setter Property="Height" Value="10"/></Trigger></Style.Triggers>
-  </Style>
+  <ResourceDictionary>
+   <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Themes/Dark.xaml" />
+   </ResourceDictionary.MergedDictionaries>
+  </ResourceDictionary>
  </Application.Resources>
 </Application>

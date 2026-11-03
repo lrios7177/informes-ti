@@ -5,8 +5,12 @@ $dataDir = Join-Path $env:LOCALAPPDATA 'InformesTI'
 $registryPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\InformesTI'
 $startLink = Join-Path ([Environment]::GetFolderPath('Programs')) 'Informes TI\Informes TI.lnk'
 $desktopLink = Join-Path ([Environment]::GetFolderPath('Desktop')) 'Informes TI.lnk'
-if ((Test-Path $installDir) -or (Test-Path $dataDir) -or (Test-Path $registryPath)) {
-    throw 'Esta prueba exige un usuario de Windows limpio. No se tocarán datos preexistentes.'
+$preexisting = @()
+if (Test-Path $installDir) { $preexisting += 'carpeta de instalación' }
+if (Test-Path $dataDir) { $preexisting += 'carpeta de datos' }
+if (Test-Path $registryPath) { $preexisting += 'registro de desinstalación' }
+if ($preexisting.Count -gt 0) {
+    throw ('Esta prueba exige un usuario de Windows limpio. Se encontró: ' + ($preexisting -join ', ') + '. No se tocarán datos preexistentes.')
 }
 $marker = Join-Path $dataDir 'persistencia-sintetica.txt'
 try {

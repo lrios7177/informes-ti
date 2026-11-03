@@ -13,6 +13,11 @@ La apariencia tecnológica no implica servicios de IA ni conexiones nuevas.
 blanco y el texto negro de la captura del usuario. WindowsSmoke verifica que la
 ventana realmente tenga fondo oscuro; no se limita a comprobar que exista el recurso.
 
+Los estilos se comparten en `Themes/Dark.xaml`. La prueba usa una Application base
+con ese diccionario, sin instanciar la App de producción: procesar eventos para
+renderizar una captura no debe ejecutar el arranque normal ni crear datos en el
+perfil real. Se verifican estas condiciones antes y después de la captura.
+
 El workflow solicita una imagen de la ventana WPF creada en la prueba con datos
 exclusivamente sintéticos. Se conserva cinco días como artefacto de vista de la
 interfaz. La imagen captura el contenido WPF; no sustituye la inspección de la

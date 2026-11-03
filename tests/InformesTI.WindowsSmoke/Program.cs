@@ -16,8 +16,16 @@ internal static class Program
         var root = Path.Combine(Path.GetTempPath(), "InformesTI-WpfSmoke-" + Guid.NewGuid());
         try
         {
-            var app = new App { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-            app.InitializeComponent();
+            var defaultDataExisted = Directory.Exists(ReportRepository.DefaultDataDirectory);
+            // Una Application de prueba evita ejecutar App.OnStartup cuando la
+            // captura procesa eventos del Dispatcher. Solo se carga el tema real.
+            var app = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+            app.Resources.MergedDictionaries.Add(new ResourceDictionary {
+                Source = new Uri("pack://application:,,,/InformesTI;component/Themes/Dark.xaml", UriKind.Absolute)
+            });
+            app.Dispatcher.Invoke(() => { }, DispatcherPriority.Render);
+            Check(app.Windows.Count == 0 && Directory.Exists(ReportRepository.DefaultDataDirectory) == defaultDataExisted,
+                "El arranque de la prueba ha tocado el perfil real de Windows.");
             var window = new MainWindow(root) { ShowInTaskbar = false };
             window.Show(); window.UpdateLayout();
             Check(window.Background is SolidColorBrush background && background.Color.R < 48 &&
@@ -35,6 +43,8 @@ internal static class Program
             Find<TextBox>("ActivitiesBox").Text = "Prueba sintética de guardado desde WPF";
             ApplicationCommands.Save.Execute(null, window);
             SaveDesignPreview(window);
+            Check(app.Windows.Count == 1 && Directory.Exists(ReportRepository.DefaultDataDirectory) == defaultDataExisted,
+                "La captura ha abierto otra ventana o creado datos fuera de la carpeta temporal de prueba.");
             var repo = new ReportRepository(root);
             var summary = repo.List().Single(); var report = repo.Get(summary.Id)!;
             Check(report.PhysicalDuration == TimeSpan.FromHours(2), "Duración física incorrecta");

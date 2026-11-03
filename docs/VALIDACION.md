@@ -5,6 +5,17 @@ Esta fecha no significa que se haya probado la aplicación instalada en Windows.
 
 ## Diseño 0.2.0
 
+Corrección posterior del aislamiento: la captura de la ejecución manual mostró
+que la creación del EXE terminaba correctamente, pero la prueba del instalador
+detectaba datos previos en el perfil. WindowsSmoke instanciaba la App de producción;
+al procesar eventos para la captura también ejecutaba App.OnStartup, que abría
+una ventana y una base de datos en la ubicación normal. Se movió el tema a
+Themes/Dark.xaml y la prueba usa ahora una Application base con ese mismo tema.
+Se comprueba que el arranque y la captura no creen ventanas adicionales ni la
+carpeta de datos normal. Se mantiene el rechazo de datos preexistentes en la
+prueba del instalador, con diagnóstico de qué objeto existe. Compilación y 20
+pruebas aprobadas en Linux; falta confirmar esta corrección en Windows.
+
 Nuevo PDF con cabecera gráfica, tarjetas de duración, secciones numeradas y marcos
 fotográficos. Se renderizaron y revisaron la primera página y un anexo del ejemplo
 sintético; las 20 pruebas pasan y la solución compila sin advertencias. La prueba
